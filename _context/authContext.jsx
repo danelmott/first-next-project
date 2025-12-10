@@ -23,9 +23,10 @@ export function AuthProvider({children}){
         }
     },[]);
 
-        function login(){
+        function login(user){
             setIslogged(true);
-            localStorage.setItem("logged", "true");
+            localStorage.setItem("logged","true");
+            localStorage.setItem("user",JSON.stringify(user));
         }
         
         function logout(){

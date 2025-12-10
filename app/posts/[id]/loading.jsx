@@ -1,7 +1,7 @@
-
+import Loader from "@/_components/loader";
 
 export default function Loading(){
     return(
-        <h2>cargando...</h2>
+        <Loader/>
     );
 }
