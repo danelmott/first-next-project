@@ -4,24 +4,27 @@ import styles from '@/_style/postPage.module.css';
 import Link from "next/link";
 import { useAuth } from "@/_context/authContext";
 import { useRouter } from "next/navigation";
+import { fechingData } from "@/_services/fechingData.js";
+
 
 
 export default function PostPage({params}){
     const [user, setUser] = useState({});
-    const {isLogged, logout} = useAuth();
+    const {isLogged} = useAuth();
     const router = useRouter();
     
-
     //EFECTO PARA CARGAR LOS DATOS
     useEffect(()=>{
         //FUNCION PARA HACER FECHING DE LOS DATOS
-        async function handleFetch(){
-            const {id} = await params;
-            const peticion = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-            const response = await peticion.json();
-            setUser(response);
+        
+        async function loadData(){
+            const {id} = await  params;
+            
+            const data = await fechingData(id);
+            setUser(data)
         }
-        handleFetch();
+        
+        loadData();
     },[params])
     
     //EFECTO PARA VERIFICAR SI EL USUARIO ESTA LOGEADO O NO

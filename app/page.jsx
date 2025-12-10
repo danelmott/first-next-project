@@ -22,7 +22,7 @@ export default function LoginForm() {
     //NO TENGA QUE VOLVER A SECCION DE LOGIN
     useEffect(()=>{
         if(isLogged){
-            router.replace("/content");
+            router.replace("/posts");
         }
     },[])
     
