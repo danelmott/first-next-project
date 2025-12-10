@@ -1,9 +1,9 @@
 "use client";
-import { useNotification } from "../_hooks/useNotification.js";
-import Notification from "../_components/Notification.jsx";
-import style from  '../_style/about.module.css'
+import { useNotification } from "../../_hooks/useNotification.js";
+import Notification from "../../_components/Notification.jsx";
+import style from  '@/_style/about.module.css';
 import Link from "next/link";
-import { useAuth } from "@/app/_context/authContext.jsx";
+import { useAuth } from "@/_context/authContext.jsx";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

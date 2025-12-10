@@ -1,7 +1,7 @@
 "use client";
-import { useAuth } from "./_context/authContext.jsx";
+import { useAuth } from "../_context/authContext.jsx";
 import { useRouter } from "next/navigation";
-
+import { useEffect } from "react";
 export default function  Login(){
     const {isLogged, login} = useAuth()
     const router = useRouter();
@@ -15,11 +15,12 @@ export default function  Login(){
         //despues de registrarse se redirecionan aqui
         router.push("/content");
     }
-
-    //si el usuario ya esta logeado se redireciona a esa ruta
-    if(isLogged){
-        router.replace("/content");
-    }
+    //efecto para cambiar de ruta si esta logeado
+    useEffect(()=>{
+        if(isLogged){
+            router.replace("/content");
+        }
+    },[isLogged, router]);
 
     return(
         <form onSubmit={handleSubmit}>
