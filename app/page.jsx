@@ -1,42 +1,17 @@
 'use client'
 import styles from '@/_style/LoginSection.module.css'
-import { useAuth } from '@/_context/authContext';
+import {  useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-
+import { CreatePost } from '@/_actions/firstAction';
 
 export default function LoginForm() {
-    const {usuario, setUsuario} = useState("");
-    const {contraseña, setContraseña} = useState("");
-    
-    const user = {
-        usuario: usuario,
-        contraseña: contraseña
-    }
-    
-    const {isLogged, login} = useAuth()
+    const [usuario, setUsuario] = useState("");
+    const [contraseña, setContraseña] = useState("");
     const router = useRouter();
-    
-    //EFECTO DE REDIRECION POR SI EL USUARIO YA ESTA LOGEADO
-    //NO TENGA QUE VOLVER A SECCION DE LOGIN
-    useEffect(()=>{
-        if(isLogged){
-            router.replace("/posts");
-        }
-    },[])
-    
-    //FUNCION PARA LOGEAR USUARIOS
-    function handlerSubmit(e){
-        e.preventDefault();
-        
-        login(user);
-        
-        router.replace("/posts");
-    }
+
     
     return (
-        <form className={styles.loginForm} onSubmit={handlerSubmit}>
+        <form className={styles.loginForm}  action={CreatePost}>
             <h2 className={styles.loginTitle}>Iniciar sesión</h2>
             
             <div className={styles.field}>
@@ -45,7 +20,7 @@ export default function LoginForm() {
                     value={usuario}
                     onChange={e => setUsuario(e.target.value)}
                     id="UserName"
-                    name="userName"
+                    name="nombre"
                     type="text"
                     required
                     className={styles.input}
@@ -59,7 +34,7 @@ export default function LoginForm() {
                     value={contraseña}
                     onChange={e => setContraseña(e.target.value)}
                     id="password"
-                    name="password"
+                    name="contraseña"
                     type="password"
                     required
                     className={styles.input}

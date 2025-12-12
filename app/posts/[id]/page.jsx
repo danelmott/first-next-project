@@ -2,23 +2,18 @@
 import { useState, useEffect} from "react";
 import styles from '@/_style/postPage.module.css';
 import Link from "next/link";
-import { useAuth } from "@/_context/authContext";
-import { useRouter } from "next/navigation";
 import { fechingData } from "@/_services/fechingData.js";
-
 
 
 export default function PostPage({params}){
     const [user, setUser] = useState({});
-    const {isLogged} = useAuth();
-    const router = useRouter();
     
     //EFECTO PARA CARGAR LOS DATOS
     useEffect(()=>{
         //FUNCION PARA HACER FECHING DE LOS DATOS
         
         async function loadData(){
-            const {id} = await  params;
+            const {id} = await params
             
             const data = await fechingData(id);
             setUser(data)
@@ -26,18 +21,8 @@ export default function PostPage({params}){
         
         loadData();
     },[params])
-    
-    //EFECTO PARA VERIFICAR SI EL USUARIO ESTA LOGEADO O NO
-    useEffect(()=>{
-        if(!isLogged){
-        router.replace("/");
-    }
-    },[isLogged]);
-    
-    if(!isLogged){
-        return null
-    }
-    
+
+
     return(
         <div className={styles.page}>
             <article className={styles.card}>

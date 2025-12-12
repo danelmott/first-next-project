@@ -1,0 +1,67 @@
+/* Minimalista y estética — orb animada */
+.container {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(180deg,#0b1220 0%, #071021 100%);
+	color: #e6f0fb;
+	padding: 24px;
+}
+
+.card {
+	text-align: center;
+	padding: 36px;
+	border-radius: 14px;
+	width: min(680px, 92%);
+	backdrop-filter: blur(6px);
+	background: rgba(255,255,255,0.02);
+	box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+	position: relative;
+}
+
+.orb {
+	width: 140px;
+	height: 140px;
+	margin: 0 auto 18px;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%, #7dd3fc, #60a5fa 40%, rgba(96,165,250,0.06) 70%);
+	box-shadow: 0 20px 40px rgba(96,165,250,0.08), inset 0 -10px 30px rgba(255,255,255,0.02);
+	animation: float 6s ease-in-out infinite, hue 10s linear infinite;
+	transform-origin: center;
+}
+
+@keyframes float {
+	0% { transform: translateY(0) scale(1); }
+	50% { transform: translateY(-14px) scale(1.02); }
+	100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes hue {
+	0% { filter: hue-rotate(0deg) saturate(1); }
+	50% { filter: hue-rotate(25deg) saturate(1.05); }
+	100% { filter: hue-rotate(0deg) saturate(1); }
+}
+
+.title { font-size: clamp(20px, 3.6vw, 28px); margin: 8px 0; font-weight: 600; letter-spacing: -0.02em; }
+.desc { color: rgba(230,240,252,0.9); margin: 10px 0 20px; max-width: 44ch; margin-left: auto; margin-right: auto; }
+.actions { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.btn {
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.06);
+	color: inherit;
+	padding: 10px 16px;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.03); box-shadow: 0 6px 18px rgba(2,6,23,0.6); }
+
+.link {
+	color: #7dd3fc;
+	text-decoration: none;
+	padding: 8px 12px;
+	border-radius: 8px;
+	font-weight: 500;
+}
+
