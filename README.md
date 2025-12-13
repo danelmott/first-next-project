@@ -1,1 +1,1 @@
-este repositorio sera mi patio de juegos para apreder next jejeje
+este repositorio sera mi patio de juegos para aprender next jejeje
