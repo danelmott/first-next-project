@@ -1,13 +1,11 @@
 'use client'
 import styles from '@/_style/LoginSection.module.css'
 import {  useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { CreatePost } from '@/_actions/firstAction';
 
 export default function LoginForm() {
     const [usuario, setUsuario] = useState("");
     const [contraseña, setContraseña] = useState("");
-    const router = useRouter();
 
     
     return (
