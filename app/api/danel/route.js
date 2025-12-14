@@ -1,16 +1,33 @@
 
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
 
-
+//BASE DE DATOS FALSA
 const db = [
     {id: 1, nombre: "danel", edad: 16, cargo: "fullstack"}
 ]
 
 
 //FUNCION GET
-export async function GET(){
+export async function GET(request){
     try{
+        const authHeader = request.headers.get("authorization");
+        
+        //VERIFICANDO EXISTENCIA DEL AUTH
+        if(!authHeader){
+            return NextResponse.json({status: 403, message: "no autorizado, api-key faltante"})
+        }
+        
+        //VERFICANDO EL FORMATO DEL AUTH
+        if(!authHeader.startsWith("Bearer ")){
+            return NextResponse.json({status:403, message: "formato de autorizacion invalido"})
+        }
+        const token = authHeader.split(" ")[1];
+        
+        //VERIFICANDO VALIDEZ DEL TOKEN
+        if(token !== process.env.API_MOTT){
+            return NextResponse.json({status: 403, message: "token invalido"})
+        }
+        
         return NextResponse.json({status:200, users: db})
     }
     catch(e){
@@ -25,6 +42,24 @@ export async function GET(){
 export async function POST(request){
     let userPeticion;
     try{
+        const authHeader = request.headers.get("authorization");
+        
+        //VERIFICANDO EXISTENCIA DEL AUTH
+        if(!authHeader){
+            return NextResponse.json({status: 403, message: "no autorizado, api-key faltante"})
+        }
+        //VERIFICANDO EL FORMATO DEL AUTH
+        if(!authHeader.startsWith("Bearer ")){
+            return NextResponse.json({status: 403, message: "formato de autorizacion invalido"})
+        }
+        const token = authHeader.split(" ")[1];
+        
+        //VERIFICANDO VALIDEZ DEL TOKEN
+        if(token !== process.env.API_MOTT){
+            return NextResponse.json({status: 403, message: "token invalido"})
+        }
+        
+        //PETICION DEL USUARIO
         userPeticion = await request.json();
         
         if(!userPeticion){
@@ -49,6 +84,25 @@ export async function PUT(request){
     let userPeticion;
 
     try{
+        const authHeader = request.headers.get("authorization")
+        //VERFICANDO EXISTENCIA DEL AUTH
+        if(!authHeader){
+            return NextResponse.json({status: 403, message:"No autorizado, api-key faltante"})
+        }
+        
+        //VERIFICANDO EL FORMATO DEL AUTH
+        if(!authHeader.startsWith("Bearer ")){
+            return NextResponse.json({status:403, message: "formato de autorizacion invalido"})
+        }
+        
+        const token = authHeader.split(" ")[1];
+        
+        //VERIFICANDO VALIDEZ DEL TOKEN
+        if(token !== process.env.API_MOTT){
+            return NextResponse.json({status: 403, message: "token invalido"})
+        }
+        
+        //PETICION DEL USUARIO
         userPeticion = await request.json();
         
         if(!userPeticion){
@@ -100,6 +154,26 @@ export async function PUT(request){
 export async function DELETE(request) {
     let userPeticion;
     try{
+        
+        const authHeader = request.headers.get("authorization");
+        
+        //VERIFICANDO EXISTENCIA DEL AUTH
+        if(!authHeader){
+            return NextResponse.json({status: 403, message: "no autorizado, api-key faltante"})
+        }
+        //VERIFICANDO EL FORMATO DEL AUTH
+        if(!authHeader.startsWith("Bearer ")){
+            return NextResponse.json({status: 403, message: "formato de autorizacion invalido"})
+        }
+        
+        const token = authHeader.split(" ")[1];
+        
+        //VERIFICANDO VALIDEZ DEL TOKEN
+        if(token !== process.env.API_MOTT){
+            return NextResponse.json({status: 403, message: "token invalido" })
+        } 
+        
+        //PETICION DEL USUARIO
         userPeticion = await request.json();
         if(!userPeticion){
             return NextResponse.json({status: 400, message: "faltan datos en el cuerpo de la peticion"})
